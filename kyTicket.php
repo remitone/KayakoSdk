@@ -299,6 +299,20 @@ class kyTicket extends kyObjectWithCustomFieldsBase
     protected $resolution_due;
 
     /**
+     * Indicates if the ticket has been resolved.
+     * @apiField
+     * @var int
+     */
+    protected $is_resolved;
+
+    /**
+     * Timestamp of when the ticket has been resolved.
+     * @apiField
+     * @var int
+     */
+    protected $resolution_time;
+
+    /**
      * Reply count.
      * @apiField
      * @var int
@@ -531,6 +545,8 @@ class kyTicket extends kyObjectWithCustomFieldsBase
         $this->sla_plan_id = ky_assure_positive_int((int)$data['slaplanid']);
         $this->next_reply_due = ky_assure_positive_int((int)$data['nextreplydue']);
         $this->resolution_due = ky_assure_positive_int((int)$data['resolutiondue']);
+        $this->is_resolved = ky_assure_positive_int((int)$data['isresolved']);
+        $this->resolution_time = ky_assure_positive_int((int)$data['resolutiontime']);
         $this->replies = intval($data['replies']);
         $this->ip_address = $data['ipaddress'];
         $this->creator = intval($data['creator']);
@@ -1426,6 +1442,40 @@ class kyTicket extends kyObjectWithCustomFieldsBase
     }
 
     /**
+     * Returns if the ticket is resolved.
+     *
+     * @return bool
+     * @filterBy
+     * @orderBy
+     */
+    public function getIsResolved()
+    {
+        return (($this->is_resolved == 1) ? true : false);
+    }
+
+    /**
+     * Returns date and time this ticket was resolved.
+     *
+     * @see http://www.php.net/manual/en/function.date.php
+     *
+     * @param string $format Output format of the date. If null the format set in client configuration is used.
+     * @return string
+     * @filterBy
+     * @orderBy
+     */
+    public function getResolutionTime($format = null)
+    {
+        if ($this->resolution_time == null)
+            return null;
+
+        if ($format === null) {
+            $format = kyConfig::get()->getDatetimeFormat();
+        }
+
+        return date($format, $this->resolution_time);
+    }
+
+    /**
      * Returns date and time of last activity on this ticket.
      *
      * @see http://www.php.net/manual/en/function.date.php
@@ -2111,3 +2161,4 @@ class kyTicket extends kyObjectWithCustomFieldsBase
         return self::$statistics;
     }
 }
+

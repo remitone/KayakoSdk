@@ -86,8 +86,8 @@ if (!function_exists('ky_xml_to_array')) {
         if (!$has_children) {
             $arr['_contents'] = trim($xml[0]);
         }
-
-        return $arr;
+        
+return $arr;
     }
 }
 

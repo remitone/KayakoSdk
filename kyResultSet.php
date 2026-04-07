@@ -508,3 +508,4 @@ class kyResultSet implements Iterator, Countable, ArrayAccess {
 		return $result;
 	}
 }
+

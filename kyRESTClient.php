@@ -166,6 +166,9 @@ class kyRESTClient implements kyRESTClientInterface {
 
 		$response = curl_exec($curl_handle);
 
+//if (str_contains($url, "https://support.remitone.com/api/index.php?/Tickets/Ticket/ListAll")) {
+//    dump($response);
+//}
 		if ($this->config->isDebugEnabled()) {
 			error_log('Response from Kayako server:');
 			error_log($response);
