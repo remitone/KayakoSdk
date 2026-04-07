@@ -1,6 +1,6 @@
 {
-    "name": "ApiHawk/KayakoSdk",
-    "description": "PHP API library for Kayako",
+    "name": "remitone/KayakoSdk",
+    "description": "Remitone PHP API library for Kayako. cloned from ApiHawk/KayakoSdk",
     "require": {
         "php": ">=5.3.0",
         "ext-curl": "*"
